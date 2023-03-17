@@ -1,24 +1,35 @@
+import { Link } from 'react-router-dom';
 
+const Header = ({
+    isAuth,
+    user
+}) => {
+    
+    const guestNavigation = (
+        <div id="guest">
+            <Link class="button" to="/login">Login</Link>
+            <Link class="button" to="/register">Register</Link>
+        </div>)
 
-const Header = () => {
+    const userNavigation = (
+        <div id="user">
+            <span>Welcome, {user}</span>
+            <Link class="button" to="/my-pets">My Pets</Link>
+            <Link class="button" to="/create">Add Pet</Link>
+            <Link class="button" to="/logout">Logout</Link>
+        </div>)
+
     return (
         <header id="site-header">
             {/* <!-- Navigation --> */}
             <nav class="navbar">
                 <section class="navbar-dashboard">
-                    <a href="#">Dashboard</a>
-                    {/* <!-- Guest users --> */}
-                    <div id="guest">
-                        <a class="button" href="#">Login</a>
-                        <a class="button" href="#">Register</a>
-                    </div>
-                    {/* <!-- Logged-in users --> */}
-                    <div id="user">
-                        <span>Welcome, email</span>
-                        <a class="button" href="#">My Pets</a>
-                        <a class="button" href="#">Add Pet</a>
-                        <a class="button" href="#">Logout</a>
-                    </div>
+                    <Link to="/">Dashboard</Link>
+                    {
+                        isAuth
+                            ? guestNavigation
+                            : userNavigation
+                    }
                 </section>
             </nav>
         </header>
