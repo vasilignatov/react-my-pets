@@ -1,7 +1,28 @@
-const Login = () => {
+import { useNavigate } from 'react-router-dom';
+import { login } from '../../services/authService.js';
+
+const Login = ({
+    onLogin
+}) => {
+    
+    const navigate = useNavigate();
+
+    const onLoginHandler = (e) => {
+        e.preventDefault();
+
+        let formData = new FormData(e.target);
+        let email = formData.get('email');
+        // let password = formData.get('password');
+
+        login(email);
+        onLogin(email);
+        navigate('/');
+    }
+
+
     return (
         <section id="login-page" class="login">
-            <form id="login-form">
+            <form id="login-form" onSubmit={onLoginHandler} method='POST'>
                 <fieldset>
                     <legend>Login Form</legend>
                     <p class="field">
