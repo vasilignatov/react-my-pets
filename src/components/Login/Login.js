@@ -4,7 +4,7 @@ import { login } from '../../services/authService.js';
 const Login = ({
     onLogin
 }) => {
-    
+
     const navigate = useNavigate();
 
     const onLoginHandler = (e) => {
@@ -19,25 +19,24 @@ const Login = ({
         navigate('/');
     }
 
-
     return (
-        <section id="login-page" class="login">
+        <section id="login-page" className="login">
             <form id="login-form" onSubmit={onLoginHandler} method='POST'>
                 <fieldset>
                     <legend>Login Form</legend>
-                    <p class="field">
+                    <p className="field">
                         <label for="email">Email</label>
-                        <span class="input">
+                        <span className="input">
                             <input type="text" name="email" id="email" placeholder="Email" />
                         </span>
                     </p>
-                    <p class="field">
+                    <p className="field">
                         <label for="password">Password</label>
-                        <span class="input">
+                        <span className="input">
                             <input type="password" name="password" id="password" placeholder="Password" />
                         </span>
                     </p>
-                    <input class="button submit" type="submit" value="Login" />
+                    <input className="button submit" type="submit" value="Login" />
                 </fieldset>
             </form>
         </section>

@@ -1,28 +1,28 @@
 const Details = () => {
     return (
-        <section id="details-page" class="details">
-            <div class="pet-information">
-                <h3>Name: Milo</h3>
-                <p class="type">Type: dog</p>
-                <p class="img"><img src="/images/dog.png" /></p>
-                <div class="actions">
+        <section id="details-page" className="details">
+            <div className="pet-information">
+                <h3>Name: Milo</h3>className
+                <p className="type">Type: dog</p>
+                <p className="img"><img src="/images/dog.png" /></p>
+                <div className="actions">
                     {/* <!-- Edit/Delete buttons ( Only for creator of this pet )  --> */}
-                    <a class="button" href="#">Edit</a>
-                    <a class="button" href="#">Delete</a>
+                    <a className="button" href="#">Edit</a>
+                    <a className="button" href="#">Delete</a>
 
                     {/* <!-- Bonus --> */}
                     {/* <!-- Like button ( Only for logged-in users, which is not creators of the current pet ) --> */}
-                    <a class="button" href="#">Like</a>
+                    <a className="button" href="#">Like</a>
 
                     {/* <!-- ( for Guests and Users )  --> */}
-                    <div class="likes">
-                        <img class="hearts" src="/images/heart.png" />
+                    <div className="likes">
+                        <img className="hearts" src="/images/heart.png" />
                         <span id="total-likes">Likes: 0</span>
                     </div>
                     {/* <!-- Bonus --> */}
                 </div>
             </div>
-            <div class="pet-description">
+            <div className="pet-description">
                 <h3>Description:</h3>
                 <p>Today, some dogs are used as pets, others are used to help humans do their work. They are a popular
                 pet because they are usually playful, friendly, loyal and listen to humans. Thirty million dogs in
