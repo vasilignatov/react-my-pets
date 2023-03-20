@@ -42,10 +42,10 @@ function App() {
           <Route path='/dashboard/*' element={<Dashboard />} />
           <Route path='/login' element={<Login onLogin={onLogin} />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/details' element={<Details />} />
           <Route path='/create' element={<Create />} />
           <Route path='/edit' element={<Edit />} />
           <Route path='/my-pets' element={<MyPets />} />
+          <Route path='/details/:petId' element={<Details />} />
         </Routes>
       </main>
 
