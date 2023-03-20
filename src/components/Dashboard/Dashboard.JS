@@ -1,31 +1,28 @@
-import { getPets } from '../../services/petService.js';
-import PetCard from '../PetCard/PetCard.js';
+import { Link, Route, Routes } from 'react-router-dom';
+import PetList from '../PetList/PetList.js';
 
-
-const Dashboard = async () => {
-
-    const pets = await getPets();
-    console.log(pets);
-
-    const petCards = (
-        <ul className="other-pets-list">
-            {
-                pets.map(p => <PetCard ket={p._id} {...p} />)
-            }
-        </ul>
-    )
+const Dashboard = () => {
+    const inlineStyles = {color: 'red', backgroundColor:' blue', marginRight: '24px'};
 
     return (
         <section id="dashboard-page" className="dashboard">
 
             <h1>Dashboard</h1>
-            
-            {
-                pets.length > 0
-                    ? petCards
-                    : < p className="no-pets" > No pets in database!</p>
 
-            }
+            <nav>
+                <Link to="types" style={inlineStyles}>Types</Link>
+                <Link to="others" style={inlineStyles}>Others</Link>
+            </nav>
+
+            <section>
+                <Routes>
+
+                    <Route path='/' element={<PetList />} />
+                    <Route path='/types' element={<p>Types....</p>} />
+                    <Route path='/others' element={<p>Others....</p>} />
+
+                </Routes>
+            </section>
 
         </section>
     )
