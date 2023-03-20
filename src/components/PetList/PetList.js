@@ -5,27 +5,33 @@ import PetCard from './PetCard/PetCard.js';
 
 const PetList = () => {
     const [pets, setPets] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         getPets()
             .then((petsArr) => {
                 setPets(petsArr);
             })
+            .finally(() => {
+                setIsLoaded(true);
+            });
     }, []);
 
     let petCards = (
         < ul className="other-pets-list" >
             {
-                pets.map(p => <PetCard ket={p._id} {...p} />)
+                pets.map(p => <PetCard ket={p._id}  pet={p}/>)
             }
         </ul >
     );
     return (
         <>
             {
-                pets.length > 0
-                    ? petCards
-                    : < p className="no-pets" > No pets in database!</p>
+                isLoaded
+                    ? pets.length > 0
+                        ? petCards
+                        : < p className="no-pets" > No pets in database!</p>
+                    : <p>Loading...</p>
             }
         </>
     );
