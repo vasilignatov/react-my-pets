@@ -1,5 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import * as authService from './services/authService.js';
 
 import Header from './components/Header/Header.js';
@@ -47,6 +47,7 @@ function App() {
 
       <main id="site-content">
         <Routes>
+          <Route path='/' element={<Navigate to="/dashboard" replace={true} />} />
           <Route path='/dashboard/*' element={<Dashboard />} />
           <Route path='/login' element={<Login onLogin={onLogin} />} />
           <Route path='/logout' element={<Logout onLogout={onLogout} />} />
