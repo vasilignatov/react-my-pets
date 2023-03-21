@@ -1,26 +1,43 @@
 import { useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import { useParams } from 'react-router-dom';
 import { getPetById } from '../../services/petService';
 
 const Details = () => {
 
     const [pet, setPet] = useState({});
+    const [isLoaded, setIsLoaded] = useState(false);
+
     const { petId } = useParams();
 
     useEffect(() => {
-        getPetById(petId).then((result) => {
-            setPet(result);
-            console.log(result);
-        });
+        setIsLoaded(false);
+        setTimeout(() => {
+
+            getPetById(petId)
+            .then((result) => {
+                setPet(result);
+            })
+            .finally(() => setIsLoaded(true));
+        },2000)
     }, []);
 
 
     return (
         <section id="details-page" className="details">
             <div className="pet-information">
-                <h3>Name: {pet.name}</h3>
-                <p className="type">Type: {pet.type}</p>
-                <p className="img"><img src={pet.imageUrl} /></p>
+                {/* {isLoaded && <h3>Name: {pet.name}</h3>} */}
+                 {isLoaded && <h3>Name: {pet.name}</h3>}
+                 {!isLoaded && <h3>Name: <Skeleton /></h3>}
+                 
+
+                {isLoaded && <p className="type">Type: {pet.type}</p>}
+                {!isLoaded && <p className="type">Type: <Skeleton count={1} /></p>}
+
+                {isLoaded && <p className="img"><img src={pet.imageUrl} /></p>}
+                {!isLoaded && <Skeleton count={5} />}
+
+
                 <div className="actions">
                     {/* <!-- Edit/Delete buttons ( Only for creator of this pet )  --> */}
                     <a className="button" href="#">Edit</a>
@@ -40,7 +57,8 @@ const Details = () => {
             </div>
             <div className="pet-description">
                 <h3>Description:</h3>
-                <p>{pet.description}</p>
+                {isLoaded && <p>{pet.description}</p>}
+                {!isLoaded && <Skeleton count={3} />}
             </div>
         </section>
     );
