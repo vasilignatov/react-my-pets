@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getPets } from '../../services/petService.js';
 import PetCard from './PetCard/PetCard.js';
-
+import { Spinner } from 'reactstrap';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const PetList = () => {
     const [pets, setPets] = useState([]);
@@ -20,10 +21,12 @@ const PetList = () => {
     let petCards = (
         < ul className="other-pets-list" >
             {
-                pets.map(p => <PetCard ket={p._id}  pet={p}/>)
+                pets.map(p => <PetCard key={p._id} pet={p} />)
             }
         </ul >
     );
+
+
     return (
         <>
             {
@@ -31,7 +34,7 @@ const PetList = () => {
                     ? pets.length > 0
                         ? petCards
                         : < p className="no-pets" > No pets in database!</p>
-                    : <p>Loading...</p>
+                    : <Spinner color="dark" size="">Loading...</Spinner>
             }
         </>
     );
