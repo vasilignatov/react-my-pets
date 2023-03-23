@@ -1,8 +1,19 @@
-import { createPet } from '../../services/petService.js'
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { createPet, getTypes } from '../../services/petService.js';
+
+
 const Create = () => {
     const navigate = useNavigate();
-    
+    const [types, setTypes] = useState([]);
+
+    useEffect(() => {
+        getTypes()
+            .then(data => {
+                setTypes(Object.values(data));
+            });
+    })
+
     async function onSubmit(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -47,11 +58,9 @@ const Create = () => {
                         <label htmlFor="type">Type</label>
                         <span className="input">
                             <select id="type" name="type">
-                                <option value="cat">Cat</option>
-                                <option value="dog">Dog</option>
-                                <option value="parrot">Parrot</option>
-                                <option value="reptile">Reptile</option>
-                                <option value="other">Other</option>
+                                {
+                                    types.map(x => <option key={x._id} value={x._id}>{x.name}</option>)
+                                }
                             </select>
                         </span>
                     </p>

@@ -26,6 +26,13 @@ export const createPet = async (petData) => {
     return res;
 }
 
+export const getTypes = async () => {
+    const res = await fetch(host + '/types');
+    const data = await res.json();
+    
+    return Object.values(data);
+}
+
 // for testing only!!!
 window.api = {
     getPetById,
