@@ -15,29 +15,29 @@ import MyPets from './components/MyPets/MyPets.js';
 
 function App() {
 
-  const [userInfo, setUserInfo] = useState({ isAuth: false, username: '' });
+  const [userInfo, setUserInfo] = useState({ isAuth: false, email: '' });
 
   useEffect(() => {
-    let user = authService.getUser();
+    let email = null;
 
     setUserInfo({
-      isAuth: Boolean(user),
-      user
+      isAuth: Boolean(email),
+      email: email
     });
 
   }, []);
 
-  const onLogin = (username) => {
+  const onLogin = (email) => {
     setUserInfo({
       isAuth: true,
-      user: username,
+      email: email,
     });
   }
 
   const onLogout = () => {
     setUserInfo({
       isAuth: false,
-      user: null
+      email: null
     });
   }
 

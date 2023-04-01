@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom';
 
 const Header = ({
     isAuth,
-    user
+    email
 }) => {
-    
+    console.log(isAuth, email);
+
     const guestNavigation = (
         <div id="guest">
             <Link className="button" to="/login">Login</Link>
@@ -13,7 +14,7 @@ const Header = ({
 
     const userNavigation = (
         <div id="user">
-            <span>Welcome, {user}</span>
+            <span>Welcome, {email}</span>
             <Link className="button" to="/my-pets">My Pets</Link>
             <Link className="button" to="/create">Add Pet</Link>
             <Link className="button" to="/logout">Logout</Link>
@@ -26,13 +27,13 @@ const Header = ({
                 <section className="navbar-dashboard">
                     <Link to="/dashboard">Dashboard</Link>
                     {
-                        isAuth
+                        !isAuth
                             ? guestNavigation
                             : userNavigation
                     }
                 </section>
             </nav>
-            
+
         </header>
     )
 }

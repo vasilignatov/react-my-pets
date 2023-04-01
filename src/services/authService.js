@@ -1,6 +1,17 @@
-export const login = (email) => {
-    localStorage.setItem('email', email);
-    // localStorage.setItem('password', password);
+export const login = async (email, password) => {
+    let res = await fetch('http://localhost:3030/users/login', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+    })
+    const result = await res.json();
+
+    if (res.ok) {
+        return result;
+    }
+
+    throw result.message;
+
 }
 
 export const getUser = () => {

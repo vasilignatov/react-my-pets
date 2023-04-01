@@ -12,9 +12,17 @@ const Login = ({
 
         let formData = new FormData(e.target);
         let email = formData.get('email');
-        // let password = formData.get('password');
+        let password = formData.get('password');
 
-        login(email);
+        login(email, password)
+            .then((authData) => {
+                console.log('logged in');
+                console.log(authData);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
         onLogin(email);
         navigate('/');
     }
