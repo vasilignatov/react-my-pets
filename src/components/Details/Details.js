@@ -1,35 +1,57 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+
 import Skeleton from 'react-loading-skeleton';
-import { useParams } from 'react-router-dom';
-import { getPetById } from '../../services/petService';
+
+import { getPetById, deletePet } from '../../services/petService';
+import { AuthContext } from '../../contexts/AuthContext.js'
 
 const Details = () => {
-
+    const { user } = useContext(AuthContext);
     const [pet, setPet] = useState({});
     const [isLoaded, setIsLoaded] = useState(false);
-
     const { petId } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        setIsLoaded(false);
-        setTimeout(() => {
-
-            getPetById(petId)
+        getPetById(petId)
             .then((result) => {
                 setPet(result);
             })
-            .finally(() => setIsLoaded(true));
-        },2000)
+            .catch(console.error)
+            .finally(() => {
+                setIsLoaded(true)
+            })
     }, []);
+
+    function deleteHandler(e) {
+        e.preventDefault();
+
+        deletePet()
+            .then(() => {
+                navigate('/');
+            });
+    }
+
+    function onEdit() {
+
+    }
+
+    const ownerButtons = (<>
+        <button onClick={ } className="button" href="#">Edit</button>
+        <button onClick={deleteHandler} className="button" href="#">Delete</button>
+    </>)
+
+    const likeBtn = <a className="button" href="#">Like</a>;
 
 
     return (
         <section id="details-page" className="details">
             <div className="pet-information">
                 {/* {isLoaded && <h3>Name: {pet.name}</h3>} */}
-                 {isLoaded && <h3>Name: {pet.name}</h3>}
-                 {!isLoaded && <h3>Name: <Skeleton /></h3>}
-                 
+                {isLoaded && <h3>Name: {pet.name}</h3>}
+                {!isLoaded && <h3>Name: <Skeleton /></h3>}
+
 
                 {isLoaded && <p className="type">Type: {pet.type}</p>}
                 {!isLoaded && <p className="type">Type: <Skeleton count={1} /></p>}
@@ -39,20 +61,16 @@ const Details = () => {
 
 
                 <div className="actions">
-                    {/* <!-- Edit/Delete buttons ( Only for creator of this pet )  --> */}
-                    <a className="button" href="#">Edit</a>
-                    <a className="button" href="#">Delete</a>
+                    {
+                        user._id && (pet._ownerId == user._id
+                            ? ownerButtons
+                            : likeBtn
+                        )}
 
-                    {/* <!-- Bonus --> */}
-                    {/* <!-- Like button ( Only for logged-in users, which is not creators of the current pet ) --> */}
-                    <a className="button" href="#">Like</a>
-
-                    {/* <!-- ( for Guests and Users )  --> */}
                     <div className="likes">
                         <img className="hearts" src="/images/heart.png" />
                         <span id="total-likes">Likes: {pet.likes || 0}</span>
                     </div>
-                    {/* <!-- Bonus --> */}
                 </div>
             </div>
             <div className="pet-description">
