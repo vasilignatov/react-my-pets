@@ -1,18 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPet, getTypes } from '../../services/petService.js';
+import { AuthContext } from '../../contexts/AuthContext.js';
 
 
 const Create = () => {
-    const navigate = useNavigate();
-    const [types, setTypes] = useState([]);
 
-    useEffect(() => {
-        getTypes()
-            .then(data => {
-                setTypes(Object.values(data));
-            });
-    })
+    const navigate = useNavigate();
+    // const [types, setTypes] = useState([]);
+    const { user } = useContext(AuthContext);
+
+    // useEffect(() => {
+    //     getTypes()
+    //         .then(data => {
+    //             setTypes(Object.values(data));
+    //         });
+    // })
 
     async function onSubmit(e) {
         e.preventDefault();
@@ -23,10 +26,11 @@ const Create = () => {
         const imageUrl = formData.get('imageUrl');
         const type = formData.get('type');
 
-        createPet({ name, description, imageUrl, type })
+        createPet({ name, description, imageUrl, type }, user.accessToken)
             .then(() => {
                 navigate('/dashboard');
-            });
+            })
+            .catch(err => console.log(err))
     }
 
 
@@ -58,9 +62,9 @@ const Create = () => {
                         <label htmlFor="type">Type</label>
                         <span className="input">
                             <select id="type" name="type">
-                                {
-                                    types.map(x => <option key={x._id} value={x._id}>{x.name}</option>)
-                                }
+                                <option value="cats">Cats</option>
+                                <option value="dogs">Dogs</option>
+                                <option value="parrot">Parrot</option>
                             </select>
                         </span>
                     </p>
