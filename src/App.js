@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import * as authService from './services/authService.js';
+import { AuthContext } from './contexts/AuthContext.js';
+import useLocalStorage from './hooks/useLocalStorage.js';
 
 import Header from './components/Header/Header.js';
 import Dashboard from './components/Dashboard/Dashboard.js';
@@ -11,28 +13,30 @@ import Details from './components/Details/Details.js';
 import Create from './components/Create/Create.js';
 import Edit from './components/Edit/Edit.js';
 import MyPets from './components/MyPets/MyPets.js';
-import { AuthContext } from './contexts/AuthContext.js';
 
+
+const initalAuthState = {
+  _id: '',
+  email: '',
+  accessToken: '',
+}
 
 function App() {
 
-  const [user, setUser] = useState({
-    _id: '',
-    email: '',
-    accessToken: '',
-  });
+  const [user, setUser] = useLocalStorage('user', initalAuthState);
 
   const onLogin = (authData) => {
     setUser(authData);
   }
 
   const onLogout = () => {
-    // TODO
+    setUser(initalAuthState)
+    
   }
 
   return (
     <>
-      <AuthContext.Provider value={{user, onLogin}}>
+      <AuthContext.Provider value={{ user, onLogin }}>
 
         <Header />
 

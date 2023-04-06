@@ -3,7 +3,7 @@ const host = 'http://localhost:3030/users'
 export const login = async (email, password) => {
     let res = await fetch(host + '/login', {
         method: "POST",
-        headers: { 
+        headers: {
             'Content-Type': 'application/json',
 
         },
@@ -21,7 +21,7 @@ export const login = async (email, password) => {
 export const register = async (email, password) => {
     let res = await fetch(host + '/register', {
         method: "POST",
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
     })
 
@@ -45,4 +45,11 @@ export const isAuth = () => {
     // return Boolean(getUser());
 }
 
-export const logout = () => fetch(host + '/logout');
+export const logout = (token) => {
+    return fetch(host + '/logout', {
+        method: 'GET',
+        headers: {
+            'X-Authorization': token
+        }
+    });
+}

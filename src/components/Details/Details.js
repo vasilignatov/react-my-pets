@@ -8,9 +8,11 @@ import { AuthContext } from '../../contexts/AuthContext.js'
 
 const Details = () => {
     const { user } = useContext(AuthContext);
+    const { petId } = useParams();
+
     const [pet, setPet] = useState({});
     const [isLoaded, setIsLoaded] = useState(false);
-    const { petId } = useParams();
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -27,18 +29,18 @@ const Details = () => {
     function deleteHandler(e) {
         e.preventDefault();
 
-        deletePet()
+        deletePet(petId, user.accessToken)
             .then(() => {
                 navigate('/');
             });
     }
 
-    function onEdit() {
+    function editHandler() {
 
     }
 
     const ownerButtons = (<>
-        <button onClick={ } className="button" href="#">Edit</button>
+        <button onClick={editHandler} className="button" href="#">Edit</button>
         <button onClick={deleteHandler} className="button" href="#">Delete</button>
     </>)
 
@@ -69,7 +71,7 @@ const Details = () => {
 
                     <div className="likes">
                         <img className="hearts" src="/images/heart.png" />
-                        <span id="total-likes">Likes: {pet.likes || 0}</span>
+                        <span id="total-likes">Likes: {pet.likes?.length}</span>
                     </div>
                 </div>
             </div>
