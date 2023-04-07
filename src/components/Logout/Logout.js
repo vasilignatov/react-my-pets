@@ -12,7 +12,7 @@ const Logout = () => {
             .then(() => {
                 onLogout()
             })
-    })
+    },[])
     logout();
     onLogout();
 

@@ -31,12 +31,11 @@ function App() {
 
   const onLogout = () => {
     setUser(initalAuthState)
-    
   }
 
   return (
     <>
-      <AuthContext.Provider value={{ user, onLogin }}>
+      <AuthContext.Provider value={{ user, onLogin, onLogout }}>
 
         <Header />
 

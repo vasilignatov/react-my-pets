@@ -12,7 +12,7 @@ const Details = () => {
 
     const [pet, setPet] = useState({});
     const [isLoaded, setIsLoaded] = useState(false);
-    
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,16 +35,21 @@ const Details = () => {
             });
     }
 
-    function editHandler() {
+    function editHandler(e) {
+        e.preventDefault(e);
+
+    }   
+
+    function likePetHandler(e) {
 
     }
 
     const ownerButtons = (<>
-        <button onClick={editHandler} className="button" href="#">Edit</button>
-        <button onClick={deleteHandler} className="button" href="#">Delete</button>
+        <button onClick={editHandler} className="button">Edit</button>
+        <button onClick={deleteHandler} className="button">Delete</button>
     </>)
 
-    const likeBtn = <a className="button" href="#">Like</a>;
+    const likeBtn = <button onClick={likePetHandler} className="button" >Like</button>;
 
 
     return (
